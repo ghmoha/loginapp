@@ -1,32 +1,31 @@
 os: osx
 language: generic
 before_script:
-  - brew update
-  - brew install --HEAD usbmuxd
-  - brew unlink usbmuxd
-  - brew link usbmuxd
-  - brew install --HEAD libimobiledevice
-  - brew install ideviceinstaller
-  - brew install ios-deploy
-  - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+- brew update
+- brew install --HEAD usbmuxd
+- brew unlink usbmuxd
+- brew link usbmuxd
+- brew install --HEAD libimobiledevice
+- brew install ideviceinstaller
+- brew install ios-deploy
+- git clone https://github.com/flutter/flutter.git -b beta --depth 1
 script:
-  - flutter/bin/flutter build ios --debug --no-codesign
+- flutter/bin/flutter build ios --debug --no-codesign
 cache:
   directories:
-    - "$HOME/.pub-cache"
+  - "$HOME/.pub-cache"
 before_deploy:
-  - pushd build/ios/iphoneos
-  - mkdir Payload
-  - cd Payload
-  - ln -s ../Runner.app
-  - cd ..
-  - zip -r app.ipa Payload
-  - popd
+- pushd build/ios/iphoneos
+- mkdir Payload
+- cd Payload
+- ln -s ../Runner.app
+- cd ..
+- zip -r app.ipa Payload
+- popd
 deploy:
   provider: releases
   api_key:
-    secure: YhYn+cTIYZzZjbLdsc550XA/xo73/7sbQ6d/ebp3h8TDTXfr7lw9tjMplnVInKWAXKdYLqWjWG6F4zHaR/jY1EyC91MAye48z4I8UZMQiTaLbYAcGuq2rwYx5DA9SIakT18qkWW1wmFQmvpieH3KEREdVXFx+Qd9kRSKVkTMqM3gLcpveNJ6ta7+MF47tDy7Ho26oWkryOR6LEXKN/cZE++/e0um+HD/vKUiOVeZebNk1dIkUnvs0b/UUNj2ntqVTBDRu1GsPK+NGlzC4IfCUTLVpTQhnt5/tWsHXtbb8Gnyg1cxDYHx9nbMPdXoorSOAnwTBe5RgH7PQBtwIOtxVNeSeS+Gu19/+Y3/QM8lzdjXDoc95lmq7akcXTw40GXVS0MPhsYQsMCssc7B4JPhdckg6d1zQJhYBvPlf+TYWmm7/vnmbH0xQPHZNIOkBe7iSHg3lrvbjEEx8XsZLlZ6459bxA4Z/RpfL+Bz2mDEbdV364+Otuo5y79Oe4jgRNkyJBzOV+rPZBpduyd5Ub8peTvhNrkIwE39Uf1LRYy6/YoDRDi+Wl/smOohd6Q2cLhfTtH0lnJsQ89oBdbJOqoXHtHYU59UEtQYWHU9s+l+Irj4YBN6xhIUC/0yargrPzPhdL2PewXRvpJVAs3V4ZOEG4PROkL9Ra1rUtQvSq0zTvE=
+    secure: iO2HlPbe7Ta3a2FAe45sZCUkXZLGDEpWn0FsxfwZoKELhIdEy0w4CNpbdDPqIhErNcGTdrazUGHbtuuVBqLSFfUcKNGFaOVJqPLYF2N2vxh55gAEUBElDQerOo6zZiYOFIZ0a3jVdcB9He8uZfY0rwFD1B1S8RUgHqPMqLPw0HDbdaQJkmCMYILdLmERcpxmQ78/xTbwF7GCNcxxFsKU5kdCDrgaBbu9lfFoAbzN49ADOHjHhxzx78nnTAotLm1aYSFDaCLYSQv5peCJohUl5cbNF4bLErZxKelW8fhXdftr+UE3gMXmlek6t4z/PIP1ieUJeqpHrdVLieatci12rgmJ23Oveug29nfiA0cV7y9MZRZcoUUzS/FoQbnhY9ZJyOJrviQyhUt4O36IWnwegl12dELJdoyxGV5sb5YN0VuRkfeAbMBaHGlaDA+pnCUp9jWT7AwjzzOAfqa+xs2aTX9qS17aNKCbcF8Cqfglngx55kaVxQI1qr4AlmGyAigX1e+oK0pMALZ31vRm1tGiPP9TPhgj9iqHVpbeX7xGAGrphJq6Qdwy168ZwopFyN59iQJL+qNDozcEzspFCrnCoEEHEWVEZIVgf2JJaSn2zDzt/oeoffIchDo+RVJ1BxaIY/aHu1BgsgIwKHofdoDq7YIzAwzLHTSgf0r3U/SOvQE=
   file: build/ios/iphoneos/app.ipa
-  skip_cleanup: true
   on:
     repo: ghmoha/loginapp
